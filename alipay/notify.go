@@ -4,9 +4,8 @@ import (
 	"net/url"
 
 	"github.com/tiantour/conf"
-	"github.com/tiantour/imago"
 	"github.com/tiantour/requests"
-	//
+	"github.com/tiantour/rsae"
 )
 
 // Notify 通知
@@ -35,7 +34,7 @@ func (n *notify) verifySign(data url.Values, signString string) bool {
 	if err != nil {
 		return false
 	}
-	signStatus, err := imago.Crypto.RSAVerify(signURL, signString)
+	signStatus, err := rsae.RSA.Verify(signURL, signString)
 	if err != nil {
 		return false
 	}

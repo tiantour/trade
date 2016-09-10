@@ -5,6 +5,7 @@ import (
 
 	"github.com/tiantour/conf"
 	"github.com/tiantour/imago"
+	"github.com/tiantour/rsae"
 )
 
 // signMap
@@ -25,7 +26,7 @@ func (s *sign) signMap(orderID, packageName, optionName, notifyURL string, total
 // signString
 func (s *sign) signString(data map[string]interface{}) (string, error) {
 	signURL := imago.Convert.MapToURL(data)
-	sign, err := imago.Crypto.RSASign(signURL)
+	sign, err := rsae.RSA.Sign(signURL)
 	if err != nil {
 		return "", err
 	}
