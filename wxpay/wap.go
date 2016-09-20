@@ -6,6 +6,7 @@ import (
 
 	"github.com/tiantour/conf"
 	"github.com/tiantour/imago"
+	"github.com/tiantour/tempo"
 )
 
 // UnifiedOrder 统一下单
@@ -82,7 +83,7 @@ func (w Wap) orderData(nonceStr, body, detail, productID, outTradeNo, spbillCrea
 func (w Wap) defraySign(prepayID string) map[string]interface{} {
 	defrayMap := map[string]interface{}{
 		"appId":     conf.Options.Wxpay.AppID,
-		"timeStamp": strconv.FormatInt(imago.Time.NowToUnix(), 10),
+		"timeStamp": strconv.FormatInt(tempo.Now.Unix(), 10),
 		"nonceStr":  imago.G.String(16),
 		"package":   "prepay_id=" + prepayID,
 		"signType":  "MD5",
