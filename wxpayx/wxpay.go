@@ -1,50 +1,58 @@
-package wxpay
+package wxpayx
 
 import "encoding/xml"
 
 const (
-	success = "SUCCESS"
+	// Success status success
+	Success = "SUCCESS"
+	// Fail status fail
+	Fail = "FAIL"
 )
 
-var (
-	// Notify 通知
-	Notify = &notify{}
-	// UnifiedOrder 预支付
-	UnifiedOrder = &unifiedorder{}
-)
+// Sign sign
+var Sign = &sign{}
 
 type (
-	// App App
+	sign struct{}
+	// App app
 	App struct{}
-	// Wap Wap
+	// Wap wap
 	Wap struct{}
-	// notify
-	notify struct{}
-	// unifiedorder
-	unifiedorder struct {
-		App
-		Wap
+	// TradeIn 交易输入
+	TradeIn struct {
+		AppID          string `xml:"appid" url:"appid"`                       // 公众账号ID，必填
+		MchID          string `xml:"mch_id" url:"mch_id"`                     // 商户号，必填
+		NonceStr       string `xml:"nonce_str" url:"nonce_str"`               // 随机字符串，必填
+		Body           string `xml:"body" url:"body"`                         // 商品描述，必填
+		Detail         string `xml:"detail" url:"detail"`                     // 商品详情，非必填
+		ProductID      string `xml:"product_id" url:"product_id"`             // 商品ID,非必填
+		OutTradeNo     string `xml:"out_trade_no" url:"out_trade_no"`         // 商户订单号，必填
+		TotalFee       int    `xml:"total_fee" url:"total_fee"`               // 总金额，必填
+		SpbillCreateIP string `xml:"spbill_create_ip" url:"spbill_create_ip"` // 终端IP，必填
+		NotifyURL      string `xml:"notify_url" url:"notify_url"`             // 通知地址,必填
+		OpenID         string `xml:"openid" url:"openid,omitempty"`           //openid，公众号支付必填
 	}
-	//UnifiedOrderInput 统一下单输入
-	UnifiedOrderInput struct {
-		XMLName        xml.Name `xml:"xml"`
-		AppID          string   `xml:"appid"`            // 公众账号ID，必填
-		MchID          string   `xml:"mch_id"`           // 商户号，必填
-		NonceStr       string   `xml:"nonce_str"`        // 随机字符串，必填
-		Sign           string   `xml:"sign"`             // 签名，必填
-		Body           string   `xml:"body"`             // 商品描述，必填
-		Detail         string   `xml:"detail"`           // 商品详情，非必填
-		ProductID      string   `xml:"product_id"`       // 商品ID,非必填
-		OutTradeNo     string   `xml:"out_trade_no"`     // 商户订单号，必填
-		TotalFee       int      `xml:"total_fee"`        // 总金额，必填
-		SpbillCreateIP string   `xml:"spbill_create_ip"` // 终端IP，必填
-		NotifyURL      string   `xml:"notify_url"`       // 通知地址,必填
-		TradeType      string   `xml:"trade_type"`       // 交易类型,必填
-		OpenID         string   `xml:"openid"`           //openid，公众号支付必填
+	// TradeOut 交易输出
+	TradeOut struct {
+		AppID     string `json:"appId" url:"appId"`
+		Package   string `json:"package" url:"package"`
+		NonceStr  string `json:"nonceStr" url:"nonceStr"`
+		TimeStamp string `json:"timeStamp" url:"timeStamp"`
+		SignType  string `json:"signType,omitempty" url:"signType,omitempty"`   // 公众号必填
+		PaySign   string `json:"paySign,omitempty" url:"paySign,omitempty"`     // 公众号必填
+		PartnerID string `json:"partnerid,omitempty" url:"partnerid,omitempty"` // app必填
+		PrepayID  string `json:"prepayid,omitempty" url:"prepayid,omitempty"`   // app必填
+		Sign      string `json:"sign,omitempty" url:"sign,omitempty"`           // app必填
 	}
-
-	//UnifiedOrderOutput 统一下单输出
-	UnifiedOrderOutput struct {
+	// signIn 统一下单输入
+	signIn struct {
+		XMLName   xml.Name `xml:"xml" url:"-"`
+		Sign      string   `xml:"sign" url:"-"`                // 签名，必填
+		TradeType string   `xml:"trade_type" url:"trade_type"` // 交易类型,必填
+		TradeIn
+	}
+	// siginOut 统一下单输出
+	signOut struct {
 		XMLName    xml.Name `xml:"xml"`
 		ReturnCode string   `xml:"return_code"`  // 返回状态码，必填
 		ReturnMsg  string   `xml:"return_msg"`   //返回信息,非必填
@@ -59,8 +67,8 @@ type (
 		PrepayID   string   `xml:"prepay_id"`    // 预支付交易会话标识
 		CodeURL    string   `xml:"code_url"`     // 二维码链接
 	}
-	//NotifyPayInput  接收微信支付通知
-	NotifyPayInput struct {
+	// NotifyIn  接收微信支付通知
+	NotifyIn struct {
 		XMLName       xml.Name `xml:"xml"`
 		ReturnCode    string   `xml:"return_code"`    // 返回状态码，必填
 		ReturnMsg     string   `xml:"return_msg"`     //返回信息,非必填
@@ -88,8 +96,8 @@ type (
 		TimeEnd       string   `xml:"time_end"`       // 支付完成时间，非必填
 	}
 
-	//NotifyPayOutput 回复微信支付通知
-	NotifyPayOutput struct {
+	// NotifyOut 回复微信支付通知
+	NotifyOut struct {
 		XMLName    xml.Name `xml:"xml"`
 		ReturnCode string   `xml:"return_code"` // 返回状态码，必填
 		ReturnMsg  string   `xml:"return_msg"`  // 返回信息，非必填

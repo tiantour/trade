@@ -1,4 +1,4 @@
-package alipay
+package alipayx
 
 import (
 	"net/url"
