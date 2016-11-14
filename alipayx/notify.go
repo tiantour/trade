@@ -4,7 +4,7 @@ import (
 	"net/url"
 
 	"github.com/tiantour/conf"
-	"github.com/tiantour/requests"
+	"github.com/tiantour/fetch"
 	"github.com/tiantour/rsae"
 )
 
@@ -43,9 +43,8 @@ func (n *notify) verifySign(data url.Values, signString string) bool {
 
 // notify 通知
 func (n *notify) verifyNotify(notifyID string) bool {
-	requestURL, requestData, requestHeader := requests.Options()
-	requestURL = "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=" + conf.Options.Alipay.Partner + "&notify_id=" + notifyID
-	body, err := requests.Get(requestURL, requestData, requestHeader)
+	requestURL := "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=" + conf.Options.Alipay.Partner + "&notify_id=" + notifyID
+	body, err := fetch.Cmd("get", requestURL)
 	if err != nil || string(body) != "true" {
 		return false
 	}

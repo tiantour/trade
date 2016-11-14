@@ -3,25 +3,26 @@ package wxpayx
 import (
 	"encoding/xml"
 	"errors"
+	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/google/go-querystring/query"
+	"github.com/tiantour/fetch"
 	"github.com/tiantour/imago"
-	"github.com/tiantour/requests"
 )
 
 // prepayID
 func (s *sign) prepayID(args signIn) (string, error) {
-	requestBody, err := xml.Marshal(args)
+	requestURL := "https://api.mch.weixin.qq.com/pay/unifiedorder"
+	requestData, err := xml.Marshal(args)
 	if err != nil {
 		return "", err
 	}
-	requestURL := "https://api.mch.weixin.qq.com/pay/unifiedorder"
-	_, _, requestHeader := requests.Options()
+	requestHeader := http.Header{}
 	requestHeader.Add("Accept", "application/xml")
 	requestHeader.Add("Content-Type", "application/xml;charset=utf-8")
-	body, err := requests.Post(requestURL, requestBody, requestHeader)
+	body, err := fetch.Cmd("post", requestURL, requestData, requestHeader)
 	if err != nil {
 		return "", err
 	}
