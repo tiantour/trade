@@ -10,8 +10,8 @@ import (
 
 // Sign 统一下单
 func (w *Wap) Sign(args TradeIn) (TradeOut, error) {
-	args.AppID = conf.Options.Wxpay.AppID // appid
-	args.MchID = conf.Options.Wxpay.MchID // 商户id
+	args.AppID = conf.Data.Wxpay.AppID // appid
+	args.MchID = conf.Data.Wxpay.MchID // 商户id
 	trade, err := w.tradeSign(args)
 	if err != nil {
 		return TradeOut{}, err
@@ -29,7 +29,7 @@ func (w *Wap) tradeSign(args TradeIn) (signIn, error) {
 		TradeIn:   args,
 		TradeType: "JSAPI",
 	}
-	sign, err := Sign.signStr(result, conf.Options.Wxpay.Key)
+	sign, err := Sign.signStr(result, conf.Data.Wxpay.Key)
 	if err != nil {
 		return signIn{}, err
 	}
@@ -40,13 +40,13 @@ func (w *Wap) tradeSign(args TradeIn) (signIn, error) {
 // defraySign 调起签名
 func (w *Wap) defraySign(prepayID string) (TradeOut, error) {
 	result := TradeOut{
-		AppID:     conf.Options.Wxpay.AppID,
+		AppID:     conf.Data.Wxpay.AppID,
 		Package:   "prepay_id=" + prepayID,
-		NonceStr:  imago.G.String(16),
+		NonceStr:  imago.Gen.String(16),
 		TimeStamp: strconv.FormatInt(tempo.Now.Unix(), 10),
 		SignType:  "MD5",
 	}
-	sign, err := Sign.signStr(result, conf.Options.Wxpay.Key)
+	sign, err := Sign.signStr(result, conf.Data.Wxpay.Key)
 	if err != nil {
 		return TradeOut{}, err
 	}

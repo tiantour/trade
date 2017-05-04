@@ -43,7 +43,7 @@ func (n *notify) verifySign(data url.Values, signString string) bool {
 
 // notify 通知
 func (n *notify) verifyNotify(notifyID string) bool {
-	requestURL := "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=" + conf.Options.Alipay.Partner + "&notify_id=" + notifyID
+	requestURL := "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=" + conf.Data.Alipay.Partner + "&notify_id=" + notifyID
 	body, err := fetch.Cmd("get", requestURL)
 	if err != nil || string(body) != "true" {
 		return false
@@ -53,7 +53,7 @@ func (n *notify) verifyNotify(notifyID string) bool {
 
 // seller 商家
 func (n *notify) verifySeller(sellerID string) bool {
-	if sellerID != conf.Options.Alipay.Partner {
+	if sellerID != conf.Data.Alipay.Partner {
 		return false
 	}
 	return true
