@@ -16,7 +16,7 @@ type (
 		AppID          string   `xml:"appid" url:"appid,omitempty"`                       // 是 公众账号ID
 		MchID          string   `xml:"mch_id" url:"mch_id,omitempty"`                     // 是 商户号
 		NonceStr       string   `xml:"nonce_str" url:"nonce_str,omitempty"`               // 是 随机字符串
-		Sign           string   `xml:"sign" url:"sign,omitempty"`                         // 是 签名
+		Sign           string   `xml:"sign" url:"-"`                                      // 是 签名
 		TradeType      string   `xml:"trade_type" url:"trade_type,omitempty"`             // 是 交易类型
 		SpbillCreateIP string   `xml:"spbill_create_ip" url:"spbill_create_ip,omitempty"` // 是 终端IP
 		NotifyURL      string   `xml:"notify_url" url:"notify_url,omitempty"`             // 是 通知地址
@@ -33,12 +33,12 @@ type (
 	}
 	// Response response
 	Response struct {
-		XMLName    xml.Name `xml:"xml"`          // 是 公共头部
-		ReturnCode string   `xml:"return_code"`  // 是 返回状态码
-		ReturnMsg  string   `xml:"return_msg"`   // 否 返回信息
-		ResultCode string   `xml:"result_code"`  // 是 业务结果
-		ErrCode    string   `xml:"err_code"`     // 否 错误代码
-		ErrCodeDes string   `xml:"err_code_des"` // 否 错误代码
+		XMLName    xml.Name `xml:"xml" url:"-"`          // 是 公共头部
+		ReturnCode string   `xml:"return_code" url:"-"`  // 是 返回状态码
+		ReturnMsg  string   `xml:"return_msg" url:"-"`   // 否 返回信息
+		ResultCode string   `xml:"result_code" url:"-"`  // 是 业务结果
+		ErrCode    string   `xml:"err_code" url:"-"`     // 否 错误代码
+		ErrCodeDes string   `xml:"err_code_des" url:"-"` // 否 错误代码
 	}
 	// Prepay prepay
 	Prepay struct {
@@ -70,7 +70,7 @@ type (
 		MchID         string `xml:"mch_id" url:"mch_id,omitempty"`                 // 是 商户号
 		DeviceInfo    string `xml:"device_info" url:"device_info,omitempty"`       // 否 设备号
 		NonceStr      string `xml:"nonce_str" url:"nonce_str,omitempty"`           // 是 随机字符串
-		Sign          string `xml:"sign" url:"sign,omitempty"`                     // 是 签名
+		Sign          string `xml:"sign" url:"-"`                                  // 是 签名
 		OpenID        string `xml:"openid" url:"openid,omitempty"`                 // 是 用户标识
 		IsSubscribe   string `xml:"is_subscribe" url:"is_subscribe,omitempty"`     // 否 是否关注公众账号
 		TradeType     string `xml:"trade_type" url:"trade_type,omitempty"`         // 是 交易类型

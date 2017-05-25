@@ -27,7 +27,6 @@ func (t Trade) Sign(args interface{}, key string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	params.Del("sign")
 	query, err := url.QueryUnescape(params.Encode())
 	if err != nil {
 		return "", err
