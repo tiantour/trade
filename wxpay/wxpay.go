@@ -33,12 +33,12 @@ type (
 	}
 	// Response response
 	Response struct {
-		XMLName    xml.Name `xml:"xml" url:"-"`                   // 是 公共头部
-		ReturnCode string   `xml:"return_code" url:",omitempty"`  // 是 返回状态码
-		ReturnMsg  string   `xml:"return_msg" url:",omitempty"`   // 否 返回信息
-		ResultCode string   `xml:"result_code" url:",omitempty"`  // 是 业务结果
-		ErrCode    string   `xml:"err_code" url:",omitempty"`     // 否 错误代码
-		ErrCodeDes string   `xml:"err_code_des" url:",omitempty"` // 否 错误代码
+		XMLName    xml.Name `xml:"xml"`          // 是 公共头部
+		ReturnCode string   `xml:"return_code"`  // 是 返回状态码
+		ReturnMsg  string   `xml:"return_msg"`   // 否 返回信息
+		ResultCode string   `xml:"result_code"`  // 是 业务结果
+		ErrCode    string   `xml:"err_code"`     // 否 错误代码
+		ErrCodeDes string   `xml:"err_code_des"` // 否 错误代码
 	}
 	// Prepay prepay
 	Prepay struct {
@@ -53,10 +53,10 @@ type (
 	}
 	// Defray defray
 	Defray struct {
-		AppID     string `json:"appId" url:"appId"`                             // 是 公众账号ID
-		Package   string `json:"package" url:"package"`                         // 是 app:Sign=WXPay,公众号:prepay_id=xxx
-		NonceStr  string `json:"nonceStr" url:"nonceStr"`                       // 是 随机字符串
-		TimeStamp string `json:"timeStamp" url:"timeStamp"`                     // 是 时间戳
+		AppID     string `json:"appId" url:"appId,omitempty"`                   // 是 公众账号ID
+		Package   string `json:"package" url:"package,omitempty"`               // 是 app:Sign=WXPay,公众号:prepay_id=xxx
+		NonceStr  string `json:"nonceStr" url:"nonceStr,omitempty"`             // 是 随机字符串
+		TimeStamp string `json:"timeStamp" url:"timeStamp,omitempty"`           // 是 时间戳
 		SignType  string `json:"signType,omitempty" url:"signType,omitempty"`   // 是 签名类型（公众号）
 		PaySign   string `json:"paySign,omitempty" url:"paySign,omitempty"`     // 是 支付类型（公众号）
 		PartnerID string `json:"partnerid,omitempty" url:"partnerid,omitempty"` // 是 商家ID （app）
