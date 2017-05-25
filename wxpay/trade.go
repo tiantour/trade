@@ -31,6 +31,7 @@ func (t Trade) Sign(args interface{}, key string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	fmt.Println(query)
 	sign := rsae.NewRsae().Md532(
 		fmt.Sprintf("%s&key=%s",
 			query,
@@ -78,6 +79,7 @@ func (t Trade) Verify(args Notice, key string) error {
 	if err != nil {
 		return err
 	}
+	fmt.Println(args.Sign, sign)
 	if args.Sign != sign {
 		return errors.New("签名错误")
 	}
