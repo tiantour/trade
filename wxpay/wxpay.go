@@ -33,12 +33,12 @@ type (
 	}
 	// Response response
 	Response struct {
-		XMLName    xml.Name `xml:"xml"`          // 是 公共头部
-		ReturnCode string   `xml:"return_code"`  // 是 返回状态码
-		ReturnMsg  string   `xml:"return_msg"`   // 否 返回信息
-		ResultCode string   `xml:"result_code"`  // 是 业务结果
-		ErrCode    string   `xml:"err_code"`     // 否 错误代码
-		ErrCodeDes string   `xml:"err_code_des"` // 否 错误代码
+		XMLName    xml.Name `xml:"xml" url:"-"`                   // 是 公共头部
+		ReturnCode string   `xml:"return_code" url:",omitempty"`  // 是 返回状态码
+		ReturnMsg  string   `xml:"return_msg" url:",omitempty"`   // 否 返回信息
+		ResultCode string   `xml:"result_code" url:",omitempty"`  // 是 业务结果
+		ErrCode    string   `xml:"err_code" url:",omitempty"`     // 否 错误代码
+		ErrCodeDes string   `xml:"err_code_des" url:",omitempty"` // 否 错误代码
 	}
 	// Prepay prepay
 	Prepay struct {
@@ -66,24 +66,24 @@ type (
 	// Notice notice
 	Notice struct {
 		Response
-		AppID         string `xml:"appid"`          // 是 公众账号ID
-		MchID         string `xml:"mch_id"`         // 是 商户号
-		DeviceInfo    string `xml:"device_info"`    // 否 设备号
-		NonceStr      string `xml:"nonce_str"`      // 是 随机字符串
-		Sign          string `xml:"sign"`           // 是 签名
-		OpenID        string `xml:"openid"`         // 是 用户标识
-		IsSubscribe   string `xml:"is_subscribe"`   // 否 是否关注公众账号
-		TradeType     string `xml:"trade_type"`     // 是 交易类型
-		BankType      string `xml:"bank_type"`      // 是 付款银行
-		TotalFee      int    `xml:"total_fee"`      // 是 总金额
-		FeeType       string `xml:"fee_type"`       // 否 货币类型
-		CashFee       int    `xml:"cash_fee"`       // 是 现金支付金额
-		CashFeeType   string `xml:"cash_fee_type"`  // 否 现金支付货币类型
-		CouponFee     int    `xml:"coupon_fee"`     // 否 代金券或立减优惠金额
-		CouponCount   int    `xml:"coupon_count"`   // 否 代金券或立减优惠使用数量
-		TransactionID string `xml:"transaction_id"` // 是 微信支付订单号
-		OutTradeNo    string `xml:"out_trade_no"`   // 是 商户订单号
-		Attach        string `xml:"attach"`         // 否 商家数据包
-		TimeEnd       string `xml:"time_end"`       // 否 支付完成时间
+		AppID         string `xml:"appid" url:"appid,omitempty"`                   // 是 公众账号ID
+		MchID         string `xml:"mch_id" url:"mch_id,omitempty"`                 // 是 商户号
+		DeviceInfo    string `xml:"device_info" url:"device_info,omitempty"`       // 否 设备号
+		NonceStr      string `xml:"nonce_str" url:"nonce_str,omitempty"`           // 是 随机字符串
+		Sign          string `xml:"sign" url:"sign,omitempty"`                     // 是 签名
+		OpenID        string `xml:"openid" url:"openid,omitempty"`                 // 是 用户标识
+		IsSubscribe   string `xml:"is_subscribe" url:"is_subscribe,omitempty"`     // 否 是否关注公众账号
+		TradeType     string `xml:"trade_type" url:"trade_type,omitempty"`         // 是 交易类型
+		BankType      string `xml:"bank_type" url:"bank_type,omitempty"`           // 是 付款银行
+		TotalFee      int    `xml:"total_fee" url:"total_fee,omitempty"`           // 是 总金额
+		FeeType       string `xml:"fee_type" url:"fee_type,omitempty"`             // 否 货币类型
+		CashFee       int    `xml:"cash_fee" url:"cash_fee,omitempty"`             // 是 现金支付金额
+		CashFeeType   string `xml:"cash_fee_type" url:"cash_fee_type,omitempty"`   // 否 现金支付货币类型
+		CouponFee     int    `xml:"coupon_fee" url:"coupon_fee,omitempty"`         // 否 代金券或立减优惠金额
+		CouponCount   int    `xml:"coupon_count" url:"coupon_count,omitempty"`     // 否 代金券或立减优惠使用数量
+		TransactionID string `xml:"transaction_id" url:"transaction_id,omitempty"` // 是 微信支付订单号
+		OutTradeNo    string `xml:"out_trade_no" url:"out_trade_no,omitempty"`     // 是 商户订单号
+		Attach        string `xml:"attach" url:"attach,omitempty"`                 // 否 商家数据包
+		TimeEnd       string `xml:"time_end" url:"time_end,omitempty"`             // 否 支付完成时间
 	}
 )
