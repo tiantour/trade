@@ -83,7 +83,7 @@ type (
 		CashFeeType        string `xml:"cash_fee_type" url:"cash_fee_type,omitempty"`               // 否 现金支付货币类型
 		CouponFee          int    `xml:"coupon_fee" url:"coupon_fee,omitempty"`                     // 否 代金券或立减优惠金额
 		CouponIDN          string `xml:"coupon_id_$n" url:"coupon_id_$n,omitempty"`                 // 否 代金券id
-		CouponFeeN         int    `xml:"coupon_fee_$n" url:"coupon_fee_$n,omitmepty"`               // 否 代金券金额
+		CouponFeeN         int    `xml:"coupon_fee_$n" url:"coupon_fee_$n,omitempty"`               // 否 代金券金额
 		CouponCount        int    `xml:"coupon_count" url:"coupon_count,omitempty"`                 // 否 代金券或立减优惠使用数量
 		TransactionID      string `xml:"transaction_id" url:"transaction_id,omitempty"`             // 是 微信支付订单号
 		OutTradeNo         string `xml:"out_trade_no" url:"out_trade_no,omitempty"`                 // 是 商户订单号
