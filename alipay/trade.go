@@ -43,13 +43,11 @@ func (t Trade) Sign(args interface{}, privatePath string) (string, error) {
 }
 
 // Verify verify
-func (t Trade) Verify(args Notice, publicPath string) error {
-	params, err := query.Values(args)
-	if err != nil {
-		return err
-	}
-	params.Del("sign")
-	query, err := url.QueryUnescape(params.Encode())
+func (t Trade) Verify(args url.Values, publicPath string) error {
+	sign := args.Get("sign")
+	args.Del("sign")
+	args.Del("sign_type")
+	query, err := url.QueryUnescape(args.Encode())
 	if err != nil {
 		return err
 	}
@@ -57,7 +55,7 @@ func (t Trade) Verify(args Notice, publicPath string) error {
 	if err != nil {
 		return err
 	}
-	ok, err := rsae.NewRsae().Verify(query, args.Sign, publicKey)
+	ok, err := rsae.NewRsae().Verify(query, sign, publicKey)
 	if !ok {
 		return errors.New("签名错误")
 	}
