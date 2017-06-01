@@ -15,21 +15,29 @@ type (
 		XMLName        xml.Name `xml:"xml" url:"-"`                                       // 是 公共头部
 		AppID          string   `xml:"appid" url:"appid,omitempty"`                       // 是 公众账号ID
 		MchID          string   `xml:"mch_id" url:"mch_id,omitempty"`                     // 是 商户号
+		DeviceInfo     string   `xml:"device_info" url:"device_info,omitempty"`           // 否 设备号
 		NonceStr       string   `xml:"nonce_str" url:"nonce_str,omitempty"`               // 是 随机字符串
 		Sign           string   `xml:"sign" url:"-"`                                      // 是 签名
-		TradeType      string   `xml:"trade_type" url:"trade_type,omitempty"`             // 是 交易类型
+		SignType       string   `xml:"sign_type" url:"sign_type,omitempty"`               // 否 签名类型
+		FeeType        string   `xml:"fee_type" url:"fee_type,omitempty"`                 // 否 币种
 		SpbillCreateIP string   `xml:"spbill_create_ip" url:"spbill_create_ip,omitempty"` // 是 终端IP
+		TimeStart      string   `xml:"time_start" url:"time_start,omitempty"`             // 否 开始时间
+		TimeExpire     string   `xml:"time_expire" url:"time_expire,omitempty"`           // 否 结束时间
+		GoodsTag       string   `xml:"goods_tag" url:"goods_tag,omitempty"`               // 否 优惠标记
 		NotifyURL      string   `xml:"notify_url" url:"notify_url,omitempty"`             // 是 通知地址
-		OpenID         string   `xml:"openid" url:"openid,omitempty"`                     // 是 openid(公众号支付)
+		TradeType      string   `xml:"trade_type" url:"trade_type,omitempty"`             // 是 交易类型 JSAPI || NATIVE || APP
+		LimitPay       string   `xml:"limit_pay" url:"limit_pay,omitempty"`               // 否 限制支付方式
+		OpenID         string   `xml:"openid" url:"openid,omitempty"`                     // 是 openid(JSAPI)
 		Request
 	}
 	// Request request
 	Request struct {
 		Body       string `xml:"body" url:"body,omitempty"`                 // 是 商品描述
 		Detail     string `xml:"detail" url:"detail,omitempty"`             // 否 商品详情
-		ProductID  string `xml:"product_id" url:"product_id,omitempty"`     // 否 商品ID
+		Attach     string `xml:"attach" url:"attach,omitempty"`             // 否 附加数据
 		OutTradeNo string `xml:"out_trade_no" url:"out_trade_no,omitempty"` // 是 商户订单号
 		TotalFee   int    `xml:"total_fee" url:"total_fee,omitempty"`       // 是 总金额
+		ProductID  string `xml:"product_id" url:"product_id,omitempty"`     // 否 商品ID NATIVE
 	}
 	// Response response
 	Response struct {
@@ -51,12 +59,13 @@ type (
 		PrepayID  string `xml:"prepay_id"`  // 是 预支付交易会话标识
 		CodeURL   string `xml:"code_url"`   // 否 二维码链接
 	}
+
 	// Defray defray
 	Defray struct {
-		AppID     string `json:"appId" url:"appId,omitempty"`                   // 是 公众账号ID
-		Package   string `json:"package" url:"package,omitempty"`               // 是 app:Sign=WXPay,公众号:prepay_id=xxx
-		NonceStr  string `json:"nonceStr" url:"nonceStr,omitempty"`             // 是 随机字符串
-		TimeStamp string `json:"timeStamp" url:"timeStamp,omitempty"`           // 是 时间戳
+		AppID     string `json:"appId,omitempty" url:"appId,omitempty"`         // 是 公众账号ID
+		Package   string `json:"package,omitempty" url:"package,omitempty"`     // 是 app:Sign=WXPay,公众号:prepay_id=xxx
+		NonceStr  string `json:"nonceStr,omitempty" url:"nonceStr,omitempty"`   // 是 随机字符串
+		TimeStamp string `json:"timeStamp,omitempty" url:"timeStamp,omitempty"` // 是 时间戳
 		SignType  string `json:"signType,omitempty" url:"signType,omitempty"`   // 是 签名类型（公众号）
 		PaySign   string `json:"paySign,omitempty" url:"paySign,omitempty"`     // 是 支付类型（公众号）
 		PartnerID string `json:"partnerid,omitempty" url:"partnerid,omitempty"` // 是 商家ID （app）

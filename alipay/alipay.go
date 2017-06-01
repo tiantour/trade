@@ -24,14 +24,17 @@ type (
 		TotalAmount        float64 `json:"total_amount,omitempty" url:"total_amount,omitempty"`                 // 是 金额
 		SellerID           string  `json:"seller_id,omitempty" url:"seller_id,omitempty"`                       // 否 卖家ID
 		AuthToken          string  `json:"auth_token,omitempty" url:"auth_token,omitempty"`                     // 否 授权
-		ProductCode        string  `json:"product_code,omitempty" url:"product_code,omitempty"`                 // 是 QUICK_WAP_PAY
+		ProductCode        string  `json:"product_code,omitempty" url:"product_code,omitempty"`                 // 是 QUICK_WAP_PAY || FAST_INSTANT_TRADE_PAY
 		GoodsType          string  `json:"goods_type,omitempty" url:"goods_type,omitempty"`                     // 否 0 虚拟商品 1 实物商品
+		GoodsDetail        string  `json:"goods_detail,omitempty" url:"goods_detail,omitempty"`                 // 否 商品明细
 		PassbackParams     string  `json:"passback_params,omitempty" url:"passback_params,omitempty"`           // 否 回传参数
 		PromoParams        string  `json:"promo_params,omitempty" url:"promo_params,omitempty"`                 // 否 优惠参数
 		ExtendParams       string  `json:"extend_params,omitempty" url:"extend_params,omitempty"`               // 否 拓展参数
 		EnablePayChannels  string  `json:"enable_pay_channels,omitempty" url:"enable_pay_channels,omitempty"`   // 否 可用渠道
 		DisablePayChannels string  `json:"disable_pay_channels,omitempty" url:"disable_pay_channels,omitempty"` // 否 禁用渠道
-		StoreID            string  `json:"store_id,omitempty" url:"store_id"`                                   // 否 门店编号
+		StoreID            string  `json:"store_id,omitempty" url:"store_id,omitempty"`                         // 否 门店编号
+		QrPayMode          string  `json:"qr_pay_mode,omitempty" url:"qr_pay_mode,omitempty"`                   // 否 二维码模式
+		QrcodeWidth        string  `json:"qrcode_width,omitempty" url:"qrcode_width,omitempty"`                 // 否 二维码宽度
 	}
 	// Notice notice
 	Notice struct {

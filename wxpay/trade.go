@@ -41,10 +41,10 @@ func (t Trade) Sign(args interface{}, key string) (string, error) {
 }
 
 // Prepay trade perpay
-func (t Trade) Prepay(args Sign) (string, error) {
+func (t Trade) Prepay(args Sign) (Prepay, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
-		return "", err
+		return Prepay{}, err
 	}
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
@@ -56,20 +56,20 @@ func (t Trade) Prepay(args Sign) (string, error) {
 		Header: header,
 	})
 	if err != nil {
-		return "", err
+		return Prepay{}, err
 	}
 	result := Prepay{}
 	err = xml.Unmarshal(body, &result)
 	if err != nil {
-		return "", err
+		return result, err
 	}
 	if result.ReturnCode != Success {
-		return "", errors.New(result.ReturnMsg)
+		return result, errors.New(result.ReturnMsg)
 	}
 	if result.ResultCode != Success {
-		return "", errors.New(result.ErrCodeDes)
+		return result, errors.New(result.ErrCodeDes)
 	}
-	return result.PrepayID, nil
+	return result, nil
 }
 
 // Verify verify
