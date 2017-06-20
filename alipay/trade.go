@@ -32,7 +32,7 @@ func (t Trade) Sign(args interface{}, privatePath string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	sign, err := rsae.NewRsae().Sign(query, privateKey)
+	sign, err := rsae.NewRsae().RSASign(query, privateKey)
 	if err != nil {
 		return "", err
 	}
@@ -55,7 +55,7 @@ func (t Trade) Verify(args url.Values, publicPath string) error {
 	if err != nil {
 		return err
 	}
-	ok, err := rsae.NewRsae().Verify(query, sign, publicKey)
+	ok, err := rsae.NewRsae().RSAVerify(query, sign, publicKey)
 	if !ok {
 		return errors.New("签名错误")
 	}
