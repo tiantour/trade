@@ -83,3 +83,35 @@ func (t Trade) Verify(args Notice, key string) error {
 	}
 	return nil
 }
+
+// Query query
+func (t Trade) Query(args Sign) (Notice, error) {
+	body, err := xml.Marshal(args)
+	if err != nil {
+		return Notice{}, err
+	}
+	header := http.Header{}
+	header.Add("Accept", "application/xml")
+	header.Add("Content-Type", "application/xml;charset=utf-8")
+	body, err = fetch.Cmd(fetch.Request{
+		Method: "POST",
+		URL:    "https://api.mch.weixin.qq.com/pay/orderquery",
+		Body:   body,
+		Header: header,
+	})
+	if err != nil {
+		return Notice{}, err
+	}
+	result := Notice{}
+	err = xml.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	if result.ReturnCode != Success {
+		return result, errors.New(result.ReturnMsg)
+	}
+	if result.ResultCode != Success {
+		return result, errors.New(result.ErrCodeDes)
+	}
+	return result, nil
+}
