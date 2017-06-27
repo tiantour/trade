@@ -83,3 +83,23 @@ func (t Trade) Query(str string) (Query, error) {
 	}
 	return result, nil
 }
+
+// Refund refund
+func (t Trade) Refund(str string) (Query, error) {
+	body, err := fetch.Cmd(fetch.Request{
+		Method: "GET",
+		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
+	})
+	if err != nil {
+		return Query{}, err
+	}
+	result := Query{}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	if result.Code != "10000" {
+		return result, errors.New(result.Msg)
+	}
+	return result, nil
+}

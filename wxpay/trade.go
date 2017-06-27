@@ -85,10 +85,10 @@ func (t Trade) Verify(args Notice, key string) error {
 }
 
 // Query query
-func (t Trade) Query(args Sign) (Notice, error) {
+func (t Trade) Query(args Sign) (Query, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
-		return Notice{}, err
+		return Query{}, err
 	}
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
@@ -100,9 +100,41 @@ func (t Trade) Query(args Sign) (Notice, error) {
 		Header: header,
 	})
 	if err != nil {
-		return Notice{}, err
+		return Query{}, err
 	}
-	result := Notice{}
+	result := Query{}
+	err = xml.Unmarshal(body, &result)
+	if err != nil {
+		return result, err
+	}
+	if result.ReturnCode != Success {
+		return result, errors.New(result.ReturnMsg)
+	}
+	if result.ResultCode != Success {
+		return result, errors.New(result.ErrCodeDes)
+	}
+	return result, nil
+}
+
+// Refund refund
+func (t Trade) Refund(args Sign) (Refund, error) {
+	body, err := xml.Marshal(args)
+	if err != nil {
+		return Refund{}, err
+	}
+	header := http.Header{}
+	header.Add("Accept", "application/xml")
+	header.Add("Content-Type", "application/xml;charset=utf-8")
+	body, err = fetch.Cmd(fetch.Request{
+		Method: "POST",
+		URL:    "https://api.mch.weixin.qq.com/pay/refund",
+		Body:   body,
+		Header: header,
+	})
+	if err != nil {
+		return Refund{}, err
+	}
+	result := Refund{}
 	err = xml.Unmarshal(body, &result)
 	if err != nil {
 		return result, err
