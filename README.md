@@ -104,7 +104,7 @@ func sign(args wxpay.Request) (wxpay.Defray, error) {
 	sign := wxpay.Sign{
 		AppID:          "your appid",
 		MchID:          "your machid",
-		NonceStr:       imago.NewRandom().String(16),
+		NonceStr:       imago.NewRandom().Text(16),
 		TradeType:      "JSAPI",
 		SpbillCreateIP: "user ip address",
 		NotifyURL:      "your notify url",
@@ -123,7 +123,7 @@ func sign(args wxpay.Request) (wxpay.Defray, error) {
 	defray := wxpay.Defray{
 		AppID:     "your app id",
 		Package:   "prepay_id=" + prepay,
-		NonceStr:  imago.NewRandom().String(16),
+		NonceStr:  imago.NewRandom().Text(16),
 		TimeStamp: strconv.FormatInt(tempo.NewNow().Unix(), 10),
 		SignType:  "MD5",
 	}
