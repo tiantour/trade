@@ -31,12 +31,10 @@ func (t Trade) Sign(args interface{}, key string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	sign := rsae.NewRsae().Md532(
-		fmt.Sprintf("%s&key=%s",
-			query,
-			key,
-		),
-	)
+	sign := rsae.NewMD5().Encode(fmt.Sprintf("%s&key=%s",
+		query,
+		key,
+	))
 	return strings.ToUpper(sign), nil
 }
 
