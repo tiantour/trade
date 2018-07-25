@@ -52,7 +52,7 @@ type (
 		Reason         string `xml:"reason,omitempty" url:"reason,omitempty"`                     // 否 失败原因
 		OpenID         string `xml:"openid,omitempty" url:"openid,omitempty"`                     // 是 用户标识
 		TransferName   string `xml:"transfer_name,omitempty" url:"transfer_name,omitempty"`       // 否 收款用户姓名
-		PaymentAmount  string `xml:"payment_amount,omitempty" url:"trade_state,omitempty"`        // 是 付款金额
+		PaymentAmount  int    `xml:"payment_amount,omitempty" url:"trade_state,omitempty"`        // 是 付款金额
 		TransferTime   string `xml:"transfer_time,omitempty" url:"transfer_time,omitempty"`       // 是 转账时间
 		Desc           string `xml:"desc,omitempty" url:"desc,omitempty"`                         // 是 付款描述
 	}
