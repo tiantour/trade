@@ -21,7 +21,7 @@ func NewTrade() *Trade {
 }
 
 // Sign trade sign
-func (t Trade) Sign(args interface{}, privatePath string) (string, error) {
+func (t *Trade) Sign(args interface{}, privatePath string) (string, error) {
 	params, err := query.Values(args)
 	if err != nil {
 		return "", err
@@ -45,7 +45,7 @@ func (t Trade) Sign(args interface{}, privatePath string) (string, error) {
 }
 
 // Verify verify
-func (t Trade) Verify(args url.Values, publicPath string) error {
+func (t *Trade) Verify(args url.Values, publicPath string) error {
 	sign := args.Get("sign")
 	args.Del("sign")
 	args.Del("sign_type")
@@ -65,7 +65,7 @@ func (t Trade) Verify(args url.Values, publicPath string) error {
 }
 
 // Query query
-func (t Trade) Query(str string) (Query, error) {
+func (t *Trade) Query(str string) (Query, error) {
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
@@ -85,7 +85,7 @@ func (t Trade) Query(str string) (Query, error) {
 }
 
 // Refund refund
-func (t Trade) Refund(str string) (Query, error) {
+func (t *Trade) Refund(str string) (Query, error) {
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),

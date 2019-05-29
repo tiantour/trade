@@ -22,7 +22,7 @@ func NewTrade() *Trade {
 }
 
 // Sign trade sign
-func (t Trade) Sign(args interface{}, key string) (string, error) {
+func (t *Trade) Sign(args interface{}, key string) (string, error) {
 	params, err := query.Values(args)
 	if err != nil {
 		return "", err
@@ -39,7 +39,7 @@ func (t Trade) Sign(args interface{}, key string) (string, error) {
 }
 
 // Prepay trade perpay
-func (t Trade) Prepay(args Sign) (Prepay, error) {
+func (t *Trade) Prepay(args Sign) (Prepay, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
 		return Prepay{}, err
@@ -71,7 +71,7 @@ func (t Trade) Prepay(args Sign) (Prepay, error) {
 }
 
 // Verify verify
-func (t Trade) Verify(args Notice, key string) error {
+func (t *Trade) Verify(args Notice, key string) error {
 	sign, err := t.Sign(args, key)
 	if err != nil {
 		return err
@@ -83,7 +83,7 @@ func (t Trade) Verify(args Notice, key string) error {
 }
 
 // Query query
-func (t Trade) Query(args Sign) (Query, error) {
+func (t *Trade) Query(args Sign) (Query, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
 		return Query{}, err
