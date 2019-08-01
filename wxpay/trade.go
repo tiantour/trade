@@ -21,9 +21,14 @@ func NewTrade() *Trade {
 }
 
 // Sign trade sign
+<<<<<<< HEAD
 func (t *Trade) Sign(args *url.Values, key string) (string, error) {
 	args.Add("key", key)
 	query, err := url.QueryUnescape(args.Encode())
+=======
+func (t *Trade) Sign(args interface{}, key string) (string, error) {
+	params, err := query.Values(args)
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	if err != nil {
 		return "", err
 	}
@@ -32,7 +37,11 @@ func (t *Trade) Sign(args *url.Values, key string) (string, error) {
 }
 
 // Prepay trade perpay
+<<<<<<< HEAD
 func (t *Trade) Prepay(args *Sign) (*Prepay, error) {
+=======
+func (t *Trade) Prepay(args Sign) (Prepay, error) {
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	body, err := xml.Marshal(args)
 	if err != nil {
 		return nil, err
@@ -64,12 +73,17 @@ func (t *Trade) Prepay(args *Sign) (*Prepay, error) {
 }
 
 // Verify verify
+<<<<<<< HEAD
 func (t *Trade) Verify(args *Notice, key string) error {
 	tmp, err := query.Values(args)
 	if err != nil {
 		return err
 	}
 	sign, err := t.Sign(&tmp, key)
+=======
+func (t *Trade) Verify(args Notice, key string) error {
+	sign, err := t.Sign(args, key)
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	if err != nil {
 		return err
 	}
@@ -80,7 +94,11 @@ func (t *Trade) Verify(args *Notice, key string) error {
 }
 
 // Query query
+<<<<<<< HEAD
 func (t *Trade) Query(args *Sign) (*Query, error) {
+=======
+func (t *Trade) Query(args Sign) (Query, error) {
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	body, err := xml.Marshal(args)
 	if err != nil {
 		return nil, err

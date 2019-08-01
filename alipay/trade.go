@@ -20,8 +20,17 @@ func NewTrade() *Trade {
 }
 
 // Sign trade sign
+<<<<<<< HEAD
 func (t *Trade) Sign(args *url.Values, privatePath string) (string, error) {
 	query, err := url.QueryUnescape(args.Encode())
+=======
+func (t *Trade) Sign(args interface{}, privatePath string) (string, error) {
+	params, err := query.Values(args)
+	if err != nil {
+		return "", err
+	}
+	query, err := url.QueryUnescape(params.Encode())
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	if err != nil {
 		return "", err
 	}
@@ -38,7 +47,11 @@ func (t *Trade) Sign(args *url.Values, privatePath string) (string, error) {
 }
 
 // Verify verify
+<<<<<<< HEAD
 func (t *Trade) Verify(args *url.Values, publicPath string) error {
+=======
+func (t *Trade) Verify(args url.Values, publicPath string) error {
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	sign := args.Get("sign")
 	args.Del("sign")
 	args.Del("sign_type")
@@ -58,7 +71,11 @@ func (t *Trade) Verify(args *url.Values, publicPath string) error {
 }
 
 // Query query
+<<<<<<< HEAD
 func (t *Trade) Query(str string) (*Query, error) {
+=======
+func (t *Trade) Query(str string) (Query, error) {
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
@@ -78,7 +95,11 @@ func (t *Trade) Query(str string) (*Query, error) {
 }
 
 // Refund refund
+<<<<<<< HEAD
 func (t *Trade) Refund(str string) (*Query, error) {
+=======
+func (t *Trade) Refund(str string) (Query, error) {
+>>>>>>> fca77165ffb6a22d9a341d286b64cfb966b500e1
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
