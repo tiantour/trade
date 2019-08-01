@@ -34,7 +34,7 @@ func (t *Trade) Sign(args *url.Values, privatePath string) (string, error) {
 		return "", err
 	}
 	args.Add("sign", sign)
-	return url.QueryEscape(args.Encode()), nil
+	return args.Encode(), nil
 }
 
 // Verify verify
