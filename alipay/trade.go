@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/google/go-querystring/query"
 	"github.com/tiantour/fetch"
 	"github.com/tiantour/imago"
 	"github.com/tiantour/rsae"
@@ -21,12 +20,8 @@ func NewTrade() *Trade {
 }
 
 // Sign trade sign
-func (t Trade) Sign(args interface{}, privatePath string) (string, error) {
-	params, err := query.Values(args)
-	if err != nil {
-		return "", err
-	}
-	query, err := url.QueryUnescape(params.Encode())
+func (t *Trade) Sign(args *url.Values, privatePath string) (string, error) {
+	query, err := url.QueryUnescape(args.Encode())
 	if err != nil {
 		return "", err
 	}
@@ -38,14 +33,12 @@ func (t Trade) Sign(args interface{}, privatePath string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s&sign=%s",
-		query,
-		url.QueryEscape(sign),
-	), nil
+	args.Add("sign", sign)
+	return url.QueryEscape(args.Encode()), nil
 }
 
 // Verify verify
-func (t Trade) Verify(args url.Values, publicPath string) error {
+func (t *Trade) Verify(args *url.Values, publicPath string) error {
 	sign := args.Get("sign")
 	args.Del("sign")
 	args.Del("sign_type")
@@ -65,41 +58,41 @@ func (t Trade) Verify(args url.Values, publicPath string) error {
 }
 
 // Query query
-func (t Trade) Query(str string) (Query, error) {
+func (t *Trade) Query(str string) (*Query, error) {
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
 	})
 	if err != nil {
-		return Query{}, err
+		return nil, err
 	}
 	result := Query{}
 	err = json.Unmarshal(body, &result)
 	if err != nil {
-		return result, err
+		return nil, err
 	}
 	if result.Code != "10000" {
-		return result, errors.New(result.Msg)
+		return nil, errors.New(result.Msg)
 	}
-	return result, nil
+	return &result, nil
 }
 
 // Refund refund
-func (t Trade) Refund(str string) (Query, error) {
+func (t *Trade) Refund(str string) (*Query, error) {
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
 	})
 	if err != nil {
-		return Query{}, err
+		return nil, err
 	}
 	result := Query{}
 	err = json.Unmarshal(body, &result)
 	if err != nil {
-		return result, err
+		return nil, err
 	}
 	if result.Code != "10000" {
-		return result, errors.New(result.Msg)
+		return nil, errors.New(result.Msg)
 	}
-	return result, nil
+	return &result, nil
 }

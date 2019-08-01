@@ -3,12 +3,10 @@ package mchpay
 import (
 	"encoding/xml"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
 
-	"github.com/google/go-querystring/query"
 	"github.com/tiantour/fetch"
 	"github.com/tiantour/rsae"
 )
@@ -22,27 +20,21 @@ func NewTrade() *Trade {
 }
 
 // Sign trade sign
-func (t *Trade) Sign(args interface{}, key string) (string, error) {
-	params, err := query.Values(args)
+func (t *Trade) Sign(args *url.Values, key string) (string, error) {
+	args.Add("key", key)
+	query, err := url.QueryUnescape(args.Encode())
 	if err != nil {
 		return "", err
 	}
-	query, err := url.QueryUnescape(params.Encode())
-	if err != nil {
-		return "", err
-	}
-	sign := rsae.NewMD5().Encode(fmt.Sprintf("%s&key=%s",
-		query,
-		key,
-	))
+	sign := rsae.NewMD5().Encode(query)
 	return strings.ToUpper(sign), nil
 }
 
 // Pay trade pay
-func (t *Trade) Pay(args Sign, certPath, keyPath string) (Response, error) {
+func (t *Trade) Pay(args *Sign, certPath, keyPath string) (*Response, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
-		return Response{}, err
+		return nil, err
 	}
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
@@ -56,27 +48,27 @@ func (t *Trade) Pay(args Sign, certPath, keyPath string) (Response, error) {
 		Key:    keyPath,
 	})
 	if err != nil {
-		return Response{}, err
+		return nil, err
 	}
 	result := Response{}
 	err = xml.Unmarshal(body, &result)
 	if err != nil {
-		return result, err
+		return nil, err
 	}
 	if result.ReturnCode != Success {
-		return result, errors.New(result.ReturnMsg)
+		return nil, errors.New(result.ReturnMsg)
 	}
 	if result.ResultCode != Success {
-		return result, errors.New(result.ErrCodeDes)
+		return nil, errors.New(result.ErrCodeDes)
 	}
-	return result, nil
+	return &result, nil
 }
 
 // Query query
-func (t *Trade) Query(args Query, certPath, keyPath string) (Response, error) {
+func (t *Trade) Query(args *Query, certPath, keyPath string) (*Response, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
-		return Response{}, err
+		return nil, err
 	}
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
@@ -90,18 +82,18 @@ func (t *Trade) Query(args Query, certPath, keyPath string) (Response, error) {
 		Key:    keyPath,
 	})
 	if err != nil {
-		return Response{}, err
+		return nil, err
 	}
 	result := Response{}
 	err = xml.Unmarshal(body, &result)
 	if err != nil {
-		return result, err
+		return nil, err
 	}
 	if result.ReturnCode != Success {
-		return result, errors.New(result.ReturnMsg)
+		return nil, errors.New(result.ReturnMsg)
 	}
 	if result.ResultCode != Success {
-		return result, errors.New(result.ErrCodeDes)
+		return nil, errors.New(result.ErrCodeDes)
 	}
-	return result, nil
+	return &result, nil
 }
