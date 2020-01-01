@@ -19,7 +19,7 @@ type (
 		NonceStr       string   `xml:"nonce_str,omitempty" url:"nonce_str,omitempty"`               // 是 随机字符串
 		Sign           string   `xml:"sign,omitempty" url:"-"`                                      // 是 签名
 		SpbillCreateIP string   `xml:"spbill_create_ip,omitempty" url:"spbill_create_ip,omitempty"` // 是 终端IP
-		Request
+		*Request
 	}
 	// Request request
 	Request struct {

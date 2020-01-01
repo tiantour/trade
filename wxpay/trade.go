@@ -112,7 +112,7 @@ func (t *Trade) Query(args *Sign) (*Query, error) {
 }
 
 // Refund refund
-func (t Trade) Refund(args *Sign) (*Refund, error) {
+func (t *Trade) Refund(args *Sign) (*Refund, error) {
 	body, err := xml.Marshal(args)
 	if err != nil {
 		return nil, err
