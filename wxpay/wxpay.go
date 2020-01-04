@@ -28,7 +28,7 @@ type (
 		TradeType      string   `xml:"trade_type,omitempty" url:"trade_type,omitempty"`             // 是 交易类型 JSAPI || NATIVE || APP
 		LimitPay       string   `xml:"limit_pay,omitempty" url:"limit_pay,omitempty"`               // 否 限制支付方式
 		OpenID         string   `xml:"openid,omitempty" url:"openid,omitempty"`                     // 是 openid(JSAPI)
-		*Request
+		Request
 	}
 	// Request request
 	Request struct {
@@ -56,7 +56,7 @@ type (
 	}
 	// Prepay prepay
 	Prepay struct {
-		*Response
+		Response
 		AppID     string `xml:"appid,omitempty"`      // 是 公众账号ID
 		MchID     string `xml:"mch_id,omitempty"`     // 是 商户号
 		NonceStr  string `xml:"nonce_str,omitempty"`  // 是 随机字符串
@@ -80,7 +80,7 @@ type (
 	}
 	// Notice notice
 	Notice struct {
-		*Response
+		Response
 		AppID              string `xml:"appid,omitempty" url:"appid,omitempty"`                               // 是 公众账号ID
 		MchID              string `xml:"mch_id,omitempty" url:"mch_id,omitempty"`                             // 是 商户号
 		DeviceInfo         string `xml:"device_info,omitempty" url:"device_info,omitempty"`                   // 否 设备号
@@ -108,7 +108,7 @@ type (
 	}
 	// Query query
 	Query struct {
-		*Response
+		Response
 		AppID              string `xml:"appid,omitempty" url:"appid,omitempty"`                               // 是 公众账号ID
 		MchID              string `xml:"mch_id,omitempty" url:"mch_id,omitempty"`                             // 是 商户号
 		NonceStr           string `xml:"nonce_str,omitempty" url:"nonce_str,omitempty"`                       // 是 随机字符串
@@ -138,7 +138,7 @@ type (
 	}
 	// Refund refund
 	Refund struct {
-		*Response
+		Response
 		AppID               string `xml:"appid,omitempty" url:"appid,omitempty"`                                 // 是 公众账号ID
 		MchID               string `xml:"mch_id,omitempty" url:"mch_id,omitempty"`                               // 是 商户号
 		NonceStr            string `xml:"nonce_str,omitempty" url:"nonce_str,omitempty"`                         // 是 随机字符串
