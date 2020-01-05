@@ -3,6 +3,7 @@ package wxpay
 import (
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -22,11 +23,11 @@ func NewTrade() *Trade {
 
 // Sign trade sign
 func (t *Trade) Sign(args *url.Values, key string) (string, error) {
-	args.Add("key", key)
 	query, err := url.QueryUnescape(args.Encode())
 	if err != nil {
 		return "", err
 	}
+	query = fmt.Sprintf("%s&key=%s", query, key)
 	sign := rsae.NewMD5().Encode(query)
 	return strings.ToUpper(sign), nil
 }
