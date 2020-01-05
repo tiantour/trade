@@ -41,18 +41,22 @@ type (
 		OutRequestNo       string  `json:"out_request_id,omitempty" url:"out_request_id,omitempty"`             // 否 标识一次退款请求
 		OperatorID         string  `json:"operator_id,omitempty" url:"operator_id,omitempty"`                   // 否 操作员编号
 		TerminalID         string  `json:"terminal_id,omitempty" url:"terminal_id,omitempty"`                   // 否 终端编号
+		BuyerID            string  `json:"buyer_id,omitempty" url:"buyer_id,omitempty"`                         // 否 用户号
 	}
 	// Result result
 	Result struct {
-		AlipayTradeQueryResponse Response `json:"alipay_trade_query_response,omitempty"` // 内容
-		Sign                     string   `json:"sign,omitempty"`                        // 签名
+		AlipayTradeCrateResponse Response `json:"alipay_trade_create_response,omitempty"` // 内容
+		AlipayTradeQueryResponse Response `json:"alipay_trade_query_response,omitempty"`  // 内容
+		Sign                     string   `json:"sign,omitempty"`                         // 签名
 	}
 	// Response response
 	Response struct {
-		Code    string `json:"code,omitempty"`     // 网关返回码
-		Msg     string `json:"msg,omitempty"`      // 网关返回码描述
-		SubCode string `json:"sub_code,omitempty"` // 业务返回码
-		SumbMsg string `json:"sub_msg,omitempty"`  // 业务描述
+		Code       string `json:"code,omitempty"`         // 网关返回码
+		Msg        string `json:"msg,omitempty"`          // 网关返回码描述
+		SubCode    string `json:"sub_code,omitempty"`     // 业务返回码
+		SumbMsg    string `json:"sub_msg,omitempty"`      // 业务描述
+		OutTradeNo string `json:"out_trade_no,omitempty"` // 是 单号
+		TradeNo    string `json:"trade_no,omitempty"`     // 是 单号
 	}
 	// Notice notice
 	Notice struct {
