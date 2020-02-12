@@ -45,16 +45,20 @@ type (
 	}
 	// Result result
 	Result struct {
-		AlipayTradeCrateResponse Response `json:"alipay_trade_create_response,omitempty"` // 内容
-		AlipayTradeQueryResponse Response `json:"alipay_trade_query_response,omitempty"`  // 内容
-		Sign                     string   `json:"sign,omitempty"`                         // 签名
+		AlipayTradeCrateResponse *Prepay `json:"alipay_trade_create_response,omitempty"` // 内容
+		AlipayTradeQueryResponse *Query  `json:"alipay_trade_query_response,omitempty"`  // 内容
+		Sign                     string  `json:"sign,omitempty"`                         // 签名
 	}
 	// Response response
 	Response struct {
-		Code       string `json:"code,omitempty"`         // 网关返回码
-		Msg        string `json:"msg,omitempty"`          // 网关返回码描述
-		SubCode    string `json:"sub_code,omitempty"`     // 业务返回码
-		SumbMsg    string `json:"sub_msg,omitempty"`      // 业务描述
+		Code    string `json:"code,omitempty"`     // 网关返回码
+		Msg     string `json:"msg,omitempty"`      // 网关返回码描述
+		SubCode string `json:"sub_code,omitempty"` // 业务返回码
+		SumbMsg string `json:"sub_msg,omitempty"`  // 业务描述
+	}
+	// Prepay prepay
+	Prepay struct {
+		Response
 		OutTradeNo string `json:"out_trade_no,omitempty"` // 是 单号
 		TradeNo    string `json:"trade_no,omitempty"`     // 是 单号
 	}
@@ -66,8 +70,8 @@ type (
 		APPID             string  `json:"appid,omitempty" url:"appid,omitempty"`                             // 是 应用ID
 		Charset           string  `json:"charset,omitempty" url:"charset,omitempty"`                         // 是 utf-8
 		Version           string  `json:"version,omitempty" url:"version,omitempty"`                         // 是 1.0
-		SignType          string  `json:"sign_type,omitempty" url:"sign_type,omitempty"`                     // 是 RSA2
-		Sign              string  `json:"sign,omitempty" url:"sign,omitempty"`                               // 是 签名
+		SignType          string  `json:"sign_type,omitempty" url:"-"`                                       // 是 RSA2
+		Sign              string  `json:"sign,omitempty" url:"-"`                                            // 是 签名
 		TradeNo           string  `json:"trade_no,omitempty" url:"trade_no,omitempty"`                       // 是 交易号
 		OutTradeNo        string  `json:"out_trade_no,omitempty" url:"out_trade_no,omitempty"`               // 是 单号
 		OutBizNo          string  `json:"out_biz_no,omitempty" url:"out_biz_no,omitempty"`                   // 否 业务ID
@@ -114,18 +118,5 @@ type (
 		DiscountGoodsDetail string  `json:"discount_goods_detail,omitempty" url:"discount_goods_detail,omitempty"` // 是 优惠信息
 		IndustrySepcDetail  string  `json:"industry_sepc_detail,omitempty" url:"industry_sepc_detail,omitempty"`   // 否 行业特殊信息
 		VoucherDetailList   string  `json:"voucher_detail_list,omitempty" url:"voucher_detail_list,omitempty"`     // 否 优惠券
-	}
-	// Refund refund
-	Refund struct {
-		Response
-		TradeNo              string  `json:"trade_no,omitempty" url:"trade_no,omitempty"`                               // 是 交易号
-		OutTradeNo           string  `json:"out_trade_no,omitempty" url:"out_trade_no,omitempty"`                       // 是 单号
-		BuyerLoginID         string  `json:"buyer_login_id,omitempty" url:"buyer_login_id,omitempty"`                   // 是 买家帐号
-		FundChange           string  `json:"fund_change,omitempty" url:"fund_change,omitempty"`                         // 是 资金编号
-		RefundFee            float64 `json:"refund_fee,omitempty" url:"refund_fee,omitempty"`                           // 是 退款金额
-		GmtRefundPay         string  `json:"gmt_refund_pay,omitempty" url:"gmt_refund_pay,omitempty"`                   // 是 退款支付时间
-		RefundDetailItemList string  `json:"refund_detail_item_list,omitempty" url:"refund_detail_item_list,omitempty"` // 否 退款使用的资金渠道
-		StoreName            string  `json:"store_name,omitempty" url:"store_name,omitempty"`                           // 是 店铺名称
-		BuyerUserID          string  `json:"buyer_user_id,omitempty" url:"buyer_user_id,omitempty"`                     // 否 卖家用户
 	}
 )

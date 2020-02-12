@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/url"
 
+	"github.com/google/go-querystring/query"
 	"github.com/tiantour/fetch"
 	"github.com/tiantour/imago"
 	"github.com/tiantour/rsae"
@@ -37,12 +38,34 @@ func (t *Trade) Sign(args *url.Values, privatePath string) (string, error) {
 	return args.Encode(), nil
 }
 
+// Prepay prepay
+func (t *Trade) Prepay(args string) (*Prepay, error) {
+	body, err := fetch.Cmd(fetch.Request{
+		Method: "GET",
+		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", args),
+	})
+	if err != nil {
+		return nil, err
+	}
+	result := Result{}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return nil, err
+	}
+	prepay := result.AlipayTradeCrateResponse
+	if prepay.Code != "10000" {
+		return nil, errors.New(prepay.Msg)
+	}
+	return result.AlipayTradeCrateResponse, nil
+}
+
 // Verify verify
-func (t *Trade) Verify(args *url.Values, publicPath string) error {
-	sign := args.Get("sign")
-	args.Del("sign")
-	args.Del("sign_type")
-	query, err := url.QueryUnescape(args.Encode())
+func (t *Trade) Verify(args *Notice, publicPath string) error {
+	tmp, err := query.Values(args)
+	if err != nil {
+		return err
+	}
+	str, err := url.QueryUnescape(tmp.Encode())
 	if err != nil {
 		return err
 	}
@@ -50,7 +73,7 @@ func (t *Trade) Verify(args *url.Values, publicPath string) error {
 	if err != nil {
 		return err
 	}
-	ok, err := rsae.NewRSA().Verify(query, sign, publicKey)
+	ok, err := rsae.NewRSA().Verify(str, args.Sign, publicKey)
 	if !ok {
 		return errors.New("签名错误")
 	}
@@ -58,41 +81,22 @@ func (t *Trade) Verify(args *url.Values, publicPath string) error {
 }
 
 // Query query
-func (t *Trade) Query(str string) (*Query, error) {
+func (t *Trade) Query(args string) (*Query, error) {
 	body, err := fetch.Cmd(fetch.Request{
 		Method: "GET",
-		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
+		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", args),
 	})
 	if err != nil {
 		return nil, err
 	}
-	result := Query{}
+	result := Result{}
 	err = json.Unmarshal(body, &result)
 	if err != nil {
 		return nil, err
 	}
-	if result.Code != "10000" {
-		return nil, errors.New(result.Msg)
+	query := result.AlipayTradeQueryResponse
+	if query.Code != "10000" {
+		return nil, errors.New(query.Msg)
 	}
-	return &result, nil
-}
-
-// Refund refund
-func (t *Trade) Refund(str string) (*Query, error) {
-	body, err := fetch.Cmd(fetch.Request{
-		Method: "GET",
-		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", str),
-	})
-	if err != nil {
-		return nil, err
-	}
-	result := Query{}
-	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return nil, err
-	}
-	if result.Code != "10000" {
-		return nil, errors.New(result.Msg)
-	}
-	return &result, nil
+	return query, nil
 }

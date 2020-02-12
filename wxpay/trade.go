@@ -23,11 +23,13 @@ func NewTrade() *Trade {
 
 // Sign trade sign
 func (t *Trade) Sign(args *url.Values, key string) (string, error) {
+	args.Add("key", key)
 	query, err := url.QueryUnescape(args.Encode())
 	if err != nil {
 		return "", err
 	}
-	query = fmt.Sprintf("%s&key=%s", query, key)
+	// query = fmt.Sprintf("%s&key=%s", query, key)
+	fmt.Println("go", query)
 	sign := rsae.NewMD5().Encode(query)
 	return strings.ToUpper(sign), nil
 }
@@ -99,38 +101,6 @@ func (t *Trade) Query(args *Sign) (*Query, error) {
 		return nil, err
 	}
 	result := Query{}
-	err = xml.Unmarshal(body, &result)
-	if err != nil {
-		return nil, err
-	}
-	if result.ReturnCode != Success {
-		return nil, errors.New(result.ReturnMsg)
-	}
-	if result.ResultCode != Success {
-		return nil, errors.New(result.ErrCodeDes)
-	}
-	return &result, nil
-}
-
-// Refund refund
-func (t *Trade) Refund(args *Sign) (*Refund, error) {
-	body, err := xml.Marshal(args)
-	if err != nil {
-		return nil, err
-	}
-	header := http.Header{}
-	header.Add("Accept", "application/xml")
-	header.Add("Content-Type", "application/xml;charset=utf-8")
-	body, err = fetch.Cmd(fetch.Request{
-		Method: "POST",
-		URL:    "https://api.mch.weixin.qq.com/pay/refund",
-		Body:   body,
-		Header: header,
-	})
-	if err != nil {
-		return nil, err
-	}
-	result := Refund{}
 	err = xml.Unmarshal(body, &result)
 	if err != nil {
 		return nil, err

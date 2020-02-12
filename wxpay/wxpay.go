@@ -65,7 +65,6 @@ type (
 		PrepayID  string `xml:"prepay_id,omitempty"`  // 是 预支付交易会话标识
 		CodeURL   string `xml:"code_url,omitempty"`   // 否 二维码链接
 	}
-
 	// Defray defray
 	Defray struct {
 		AppID     string `json:"appId,omitempty" url:"appId,omitempty"`         // 是 公众账号ID
@@ -135,30 +134,5 @@ type (
 		Attach             string `xml:"attach,omitempty" url:"attach,omitempty"`                             // 否 商家数据包
 		TimeEnd            string `xml:"time_end,omitempty" url:"time_end,omitempty"`                         // 否 支付完成时间
 		TradeStateDesc     string `xml:"trade_state_desc,omitempty" url:"trade_state_desc,omitempty"`         // 是 交易状态描述
-	}
-	// Refund refund
-	Refund struct {
-		Response
-		AppID               string `xml:"appid,omitempty" url:"appid,omitempty"`                                 // 是 公众账号ID
-		MchID               string `xml:"mch_id,omitempty" url:"mch_id,omitempty"`                               // 是 商户号
-		NonceStr            string `xml:"nonce_str,omitempty" url:"nonce_str,omitempty"`                         // 是 随机字符串
-		Sign                string `xml:"sign,omitempty" url:"-"`                                                // 是 签名
-		TransactionID       string `xml:"transaction_id,omitempty" url:"transaction_id,omitempty"`               // 是 微信支付订单号
-		OutTradeNo          string `xml:"out_trade_no,omitempty" url:"out_trade_no,omitempty"`                   // 是 商户订单号
-		OutRefundNo         string `xml:"out_refund_no,omitempty" url:"out_refund_no,omitempty"`                 // 是 商户退款单号
-		RefundID            string `xml:"refund_id,omitempty" url:"refund_id,omitempty"`                         // 是 微信退款订单号
-		RefundFee           int    `xml:"refund_fee,omitempty" url:"refund_fee,omitempty"`                       // 是 退款金额
-		SettlementRefundFee int    `xml:"settlement_refund_fee,omitempty" url:"settlement_refund_fee,omitempty"` // 否 应结退款金额
-		TotalFee            int    `xml:"total_fee,omitempty" url:"total_fee,omitempty"`                         // 是 标价金额
-		SettlementTotalFee  int    `xml:"settlement_total_fee,omitempty" url:"settlement_total_fee,omitempty"`   // 是 应结订单金额
-		FeeType             string `xml:"fee_type,omitempty" url:"fee_type,omitempty"`                           // 否 标价币种
-		CashFee             int    `xml:"cash_fee,omitempty" url:"cash_fee,omitempty"`                           // 是 现金支付金额
-		CashFeeType         string `xml:"cash_fee_type,omitempty" url:"cash_fee_type,omitempty"`                 // 否 现金支付币种
-		CashRefundFee       int    `xml:"cash_refund_fee,omitempty" url:"cash_refund_fee,omitempty"`             // 否 现金退款金额
-		CouponTypeN         string `xml:"coupon_type_$n,omitempty" url:"coupon_type_$n,omitempty"`               // 否 代金券类型
-		CouponRefundFee     int    `xml:"coupon_refund_fee,omitempty" url:"coupon_refund_fee,omitempty"`         // 否 代金券退款总金额
-		CouponRefundFeeN    int    `xml:"coupon_refund_fee_$n,omitempty" url:"coupon_refund_fee_$n,omitempty"`   // 否 单个代金券退款金额
-		CouponRefundCount   int    `xml:"coupon_refund_count,omitempty" url:"coupon_refund_count,omitempty"`     // 否 退款代金券使用数量
-		CouponRefundIDN     string `xml:"coupon_refund_id_$n,omitempty" url:"coupon_refund_id_$n,omitempty"`     // 否 退款代金券ID
 	}
 )
