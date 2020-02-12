@@ -109,7 +109,6 @@ type (
 		ReceiptAmount       string `json:"receipt_amount,omitempty" url:"receipt_amount,omitempty"`                 // 是 实收金额
 		StoreID             string `json:"store_id,omitempty" url:"store_id,omitempty"`                             // 否 门店编号
 		TerminalID          string `json:"terminal_id,omitempty" url:"terminal_id,omitempty"`                       // 否 终端编号
-		FundBillList        string `json:"fund_bill_list,omitempty" url:"fund_bill_list,omitempty"`                 // 否 渠道金额
 		StoreName           string `json:"store_name,omitempty" url:"store_name,omitempty"`                         // 是 店铺名称
 		BuyerUserID         string `json:"buyer_user_id,omitempty" url:"buyer_user_id,omitempty"`                   // 否 卖家用户
 		ChargeAmount        string `json:"charge_amount,omitempty" url:"charge_amount,omitempty"`                   // 否 收费金额
