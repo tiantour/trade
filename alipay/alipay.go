@@ -99,24 +99,24 @@ type (
 	// Query query
 	Query struct {
 		Response
-		TradeNo             string  `json:"trade_no,omitempty" url:"trade_no,omitempty"`                           // 是 交易号
-		OutTradeNo          string  `json:"out_trade_no,omitempty" url:"out_trade_no,omitempty"`                   // 是 单号
-		BuyerLoginID        string  `json:"buyer_login_id,omitempty" url:"buyer_login_id,omitempty"`               // 是 买家帐号
-		TradeStatus         string  `json:"trade_status,omitempty" url:"trade_status,omitempty"`                   // 是 交易状态
-		TotalAmount         float64 `json:"total_amount,omitempty" url:"total_amount,omitempty"`                   // 是 订单金额
-		ReceiptAmount       float64 `json:"receipt_amount,omitempty" url:"receipt_amount,omitempty"`               // 是 实收金额
-		BuyerPayAmount      float64 `json:"buyer_pay_amount,omitempty" url:"buyer_pay_amount,omitempty"`           // 否 付款金额
-		PointAmount         float64 `json:"point_amount,omitempty" url:"point_amount,omitempty"`                   // 否 积分金额
-		InvoiceAmount       float64 `json:"invoice_amount,omitempty" url:"invoice_amount,omitempty"`               // 搜 开票金额
-		SendPayDate         string  `json:"send_pay_date,omitempty" url:"send_pay_date,omitempty"`                 // 是 打款给卖家时间
-		AlipayStoreID       string  `json:"alipay_store_id,omitempty" url:"alipay_store_id,omitempty"`             // 是 支付宝店铺编号
-		StoreID             string  `json:"store_id,omitempty" url:"store_id,omitempty"`                           // 否 门店编号
-		TerminalID          string  `json:"terminal_id,omitempty" url:"terminal_id,omitempty"`                     // 否 终端编号
-		FundBillList        string  `json:"fund_bill_list,omitempty" url:"fund_bill_list,omitempty"`               // 否 渠道金额
-		StoreName           string  `json:"store_name,omitempty" url:"store_name,omitempty"`                       // 是 店铺名称
-		BuyerUserID         string  `json:"buyer_user_id,omitempty" url:"buyer_user_id,omitempty"`                 // 否 卖家用户
-		DiscountGoodsDetail string  `json:"discount_goods_detail,omitempty" url:"discount_goods_detail,omitempty"` // 是 优惠信息
-		IndustrySepcDetail  string  `json:"industry_sepc_detail,omitempty" url:"industry_sepc_detail,omitempty"`   // 否 行业特殊信息
-		VoucherDetailList   string  `json:"voucher_detail_list,omitempty" url:"voucher_detail_list,omitempty"`     // 否 优惠券
+		TradeNo             string `json:"trade_no,omitempty" url:"trade_no,omitempty"`                           // 是 交易号
+		OutTradeNo          string `json:"out_trade_no,omitempty" url:"out_trade_no,omitempty"`                   // 是 单号
+		BuyerLoginID        string `json:"buyer_login_id,omitempty" url:"buyer_login_id,omitempty"`               // 是 买家帐号
+		TradeStatus         string `json:"trade_status,omitempty" url:"trade_status,omitempty"`                   // 是 交易状态
+		TotalAmount         string `json:"total_amount,omitempty" url:"total_amount,omitempty"`                   // 是 订单金额
+		ReceiptAmount       string `json:"receipt_amount,omitempty" url:"receipt_amount,omitempty"`               // 是 实收金额
+		BuyerPayAmount      string `json:"buyer_pay_amount,omitempty" url:"buyer_pay_amount,omitempty"`           // 否 付款金额
+		PointAmount         string `json:"point_amount,omitempty" url:"point_amount,omitempty"`                   // 否 积分金额
+		InvoiceAmount       string `json:"invoice_amount,omitempty" url:"invoice_amount,omitempty"`               // 搜 开票金额
+		SendPayDate         string `json:"send_pay_date,omitempty" url:"send_pay_date,omitempty"`                 // 是 打款给卖家时间
+		AlipayStoreID       string `json:"alipay_store_id,omitempty" url:"alipay_store_id,omitempty"`             // 是 支付宝店铺编号
+		StoreID             string `json:"store_id,omitempty" url:"store_id,omitempty"`                           // 否 门店编号
+		TerminalID          string `json:"terminal_id,omitempty" url:"terminal_id,omitempty"`                     // 否 终端编号
+		FundBillList        string `json:"fund_bill_list,omitempty" url:"fund_bill_list,omitempty"`               // 否 渠道金额
+		StoreName           string `json:"store_name,omitempty" url:"store_name,omitempty"`                       // 是 店铺名称
+		BuyerUserID         string `json:"buyer_user_id,omitempty" url:"buyer_user_id,omitempty"`                 // 否 卖家用户
+		DiscountGoodsDetail string `json:"discount_goods_detail,omitempty" url:"discount_goods_detail,omitempty"` // 是 优惠信息
+		IndustrySepcDetail  string `json:"industry_sepc_detail,omitempty" url:"industry_sepc_detail,omitempty"`   // 否 行业特殊信息
+		VoucherDetailList   string `json:"voucher_detail_list,omitempty" url:"voucher_detail_list,omitempty"`     // 否 优惠券
 	}
 )
