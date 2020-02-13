@@ -60,6 +60,7 @@ func (t *Trade) Prepay(args string) (*Prepay, error) {
 
 // Verify verify
 func (t *Trade) Verify(args *url.Values, publicPath string) error {
+	sign := args.Get("sign")
 	args.Del("sign")
 	args.Del("sign_type")
 	str, err := url.QueryUnescape(args.Encode())
@@ -70,7 +71,7 @@ func (t *Trade) Verify(args *url.Values, publicPath string) error {
 	if err != nil {
 		return err
 	}
-	ok, err := rsae.NewRSA().Verify(str, args.Get("sign"), publicKey)
+	ok, err := rsae.NewRSA().Verify(str, sign, publicKey)
 	if !ok {
 		return errors.New("签名错误")
 	}
