@@ -62,8 +62,8 @@ type (
 		NotifyTime     string `json:"notify_time,omitempty" url:"notify_time,omitempty" schema:"notify_time,omitempty"`                // 是 时间
 		NotifyType     string `json:"notify_type,omitempty" url:"notify_type,omitempty" schema:"notify_type,omitempty"`                // 是 类型
 		NotifyID       string `json:"notify_id,omitempty" url:"notify_id,omitempty" schema:"notify_id,omitempty"`                      // 是 校验ID
-		SignType       string `json:"sign_type,omitempty" url:"-" schema:"-"`                                                          // 是 RSA2
-		Sign           string `json:"sign,omitempty" url:"-" schema:"-"`                                                               // 是 签名
+		SignType       string `json:"sign_type,omitempty" url:"-" schema:"sign_type,omitempty"`                                        // 是 RSA2
+		Sign           string `json:"sign,omitempty" url:"-" schema:"sign,omitempty"`                                                  // 是 签名
 		TradeNo        string `json:"trade_no,omitempty" url:"trade_no,omitempty" schema:"trade_no,omitempty"`                         // 是 交易号
 		APPID          string `json:"app_id,omitempty" url:"app_id,omitempty" schema:"app_id,omitempty"`                               // 是 应用ID
 		OutTradeNo     string `json:"out_trade_no,omitempty" url:"out_trade_no,omitempty" schema:"out_trade_no,omitempty"`             // 是 单号
