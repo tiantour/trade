@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/google/go-querystring/query"
 	"github.com/tiantour/fetch"
 	"github.com/tiantour/imago"
 	"github.com/tiantour/rsae"
@@ -60,12 +59,10 @@ func (t *Trade) Prepay(args string) (*Prepay, error) {
 }
 
 // Verify verify
-func (t *Trade) Verify(args *Notice, publicPath string) error {
-	tmp, err := query.Values(args)
-	if err != nil {
-		return err
-	}
-	str, err := url.QueryUnescape(tmp.Encode())
+func (t *Trade) Verify(args *url.Values, publicPath string) error {
+	args.Del("sign")
+	args.Del("sign_type")
+	str, err := url.QueryUnescape(args.Encode())
 	if err != nil {
 		return err
 	}
@@ -73,7 +70,7 @@ func (t *Trade) Verify(args *Notice, publicPath string) error {
 	if err != nil {
 		return err
 	}
-	ok, err := rsae.NewRSA().Verify(str, args.Sign, publicKey)
+	ok, err := rsae.NewRSA().Verify(str, args.Get("sign"), publicKey)
 	if !ok {
 		return errors.New("签名错误")
 	}
