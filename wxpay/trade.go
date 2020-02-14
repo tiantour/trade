@@ -41,7 +41,7 @@ func (t *Trade) Prepay(args *Sign) (*Prepay, error) {
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
 	header.Add("Content-Type", "application/xml;charset=utf-8")
-	body, err = fetch.Cmd(fetch.Request{
+	body, err = fetch.Cmd(&fetch.Request{
 		Method: "POST",
 		URL:    "https://api.mch.weixin.qq.com/pay/unifiedorder",
 		Body:   body,
@@ -89,7 +89,7 @@ func (t *Trade) Query(args *Sign) (*Query, error) {
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
 	header.Add("Content-Type", "application/xml;charset=utf-8")
-	body, err = fetch.Cmd(fetch.Request{
+	body, err = fetch.Cmd(&fetch.Request{
 		Method: "POST",
 		URL:    "https://api.mch.weixin.qq.com/pay/orderquery",
 		Body:   body,

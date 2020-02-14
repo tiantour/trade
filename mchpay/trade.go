@@ -40,7 +40,7 @@ func (t *Trade) Pay(args *Sign, certPath, keyPath string) (*Response, error) {
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
 	header.Add("Content-Type", "application/xml;charset=utf-8")
-	body, err = fetch.Cmd(fetch.Request{
+	body, err = fetch.Cmd(&fetch.Request{
 		Method: "POST",
 		URL:    "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers",
 		Body:   body,
@@ -74,7 +74,7 @@ func (t *Trade) Query(args *Query, certPath, keyPath string) (*Response, error) 
 	header := http.Header{}
 	header.Add("Accept", "application/xml")
 	header.Add("Content-Type", "application/xml;charset=utf-8")
-	body, err = fetch.Cmd(fetch.Request{
+	body, err = fetch.Cmd(&fetch.Request{
 		Method: "POST",
 		URL:    "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo",
 		Body:   body,

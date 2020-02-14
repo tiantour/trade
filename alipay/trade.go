@@ -39,7 +39,7 @@ func (t *Trade) Sign(args *url.Values, privatePath string) (string, error) {
 
 // Prepay prepay
 func (t *Trade) Prepay(args string) (*Prepay, error) {
-	body, err := fetch.Cmd(fetch.Request{
+	body, err := fetch.Cmd(&fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", args),
 	})
@@ -80,7 +80,7 @@ func (t *Trade) Verify(args *url.Values, publicPath string) error {
 
 // Query query
 func (t *Trade) Query(args string) (*Query, error) {
-	body, err := fetch.Cmd(fetch.Request{
+	body, err := fetch.Cmd(&fetch.Request{
 		Method: "GET",
 		URL:    fmt.Sprintf("https://openapi.alipay.com/gateway.do?%s", args),
 	})
