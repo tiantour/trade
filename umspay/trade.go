@@ -1,12 +1,16 @@
 package umspay
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
+	"strings"
 
 	"github.com/tiantour/fetch"
+	"github.com/tiantour/rsae"
 )
 
 // Trade trade
@@ -77,6 +81,27 @@ func (t *Trade) Wxpay(args *Request) (*Response, error) {
 		return nil, errors.New(result.ErrMsg)
 	}
 	return &result, nil
+}
+
+// Verify verify
+func (t *Trade) Verify(args *url.Values, key string) error {
+	s := args.Get("sign")
+	args.Del("sign")
+
+	query, err := url.QueryUnescape(args.Encode())
+	if err != nil {
+		return err
+	}
+	query = fmt.Sprintf("%s%s", query, key)
+	sign := strings.ToUpper(
+		hex.EncodeToString(
+			rsae.NewSHA().SHA256(query),
+		),
+	)
+	if sign != s {
+		return errors.New("签名错误")
+	}
+	return nil
 }
 
 // Query query

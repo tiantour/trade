@@ -27,8 +27,9 @@ func (t *Trade) Sign(args *url.Values, key string) (string, error) {
 		return "", err
 	}
 	query = fmt.Sprintf("%s&key=%s", query, key)
-	sign := rsae.NewMD5().Encode(query)
-	return strings.ToUpper(sign), nil
+	return strings.ToUpper(
+		rsae.NewMD5().Encode(query),
+	), nil
 }
 
 // Pay trade pay
