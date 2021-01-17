@@ -60,6 +60,7 @@ type (
 		SeqID            string          `json:"seqId,omitempty"`            // 否 平台流水号
 		SettleRefID      string          `json:"settleRefId,omitempty"`      // 否 清分ID 字符串
 		Status           string          `json:"status,omitempty"`           // 否 交易状态
+		GoodsTradeNo     string          `json:"goodsTradeNo,omitempty"`     // 否 商品交易单号
 		TotalAmount      int             `json:"totalAmount,omitempty"`      // 否 支付总金额
 		TargetOrderID    string          `json:"targetOrderId,omitempty"`    // 否 第三方订单号
 		TargetSys        string          `json:"targetSys,omitempty"`        // 否 目标平台代码
